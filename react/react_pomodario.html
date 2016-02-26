@@ -43,8 +43,16 @@
     
 
     render: function(){
+      var ProgressBar = ReactBootstrap.ProgressBar
+      var Col = ReactBootstrap.Col
+
       return (
-        <div> {this.state.count} </div>
+        <div> 
+          {this.state.count} 
+          <Col xs={3}>
+            <ProgressBar active now={this.state.count} />
+          </Col>
+        </div>
       )
     },
 
