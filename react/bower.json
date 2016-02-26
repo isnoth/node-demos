@@ -38,6 +38,7 @@
     "babel": "*",
     "bootstrap": "~3.3.6",
     "notify.js": "~1.2.8",
-    "classnames": "^2.2.3"
+    "classnames": "^2.2.3",
+    "PubSubJS": "pubsub-js#^1.5.3"
   }
 }

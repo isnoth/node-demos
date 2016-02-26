@@ -1,0 +1,47 @@
+<h2>React-Bootstrap Testing</h2>
+<p> ongoing ..</p>
+
+<div id="testapp"></div>
+
+<script src="bower_components/react/react.js"></script>
+<script src="bower_components/react/react-dom.js"></script>
+<script src="bower_components/babel/browser.js"></script>
+<script src="bower_components/firebase/firebase.js"></script>
+<script src="bower_components/react-bootstrap/react-bootstrap.js"></script>
+<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+<script type="text/babel">
+  var TestApp = React.createClass({
+    
+      componentWillMount: function() {
+        this.firebaseRef = new Firebase('https://thisisatestapp.firebaseio.com/items/');
+        this.firebaseRef.on('value', function(dataSnapshot) {
+            //console.log(dataSnapshot)
+            console.log(dataSnapshot.val())
+            var items = []
+            dataSnapshot.forEach(function(childSnapshot){
+              var item = childSnapshot.val()
+              item['.key'] = childSnapshot.key()
+              //console.log(childSnapshot.key())
+              console.log(item)
+              items.push(item);
+            }.bind(this));
+
+            this.setState({
+              items: items
+            });
+        }.bind(this));
+      },
+
+      componentWillUnmount: function() {
+        this.firebaseRef.off();
+      },
+
+      render: function(){
+        return(<p> test </p>)
+      }
+  
+  })
+
+  ReactDOM.render(<TestApp />, document.getElementById('testapp'))
+</script>
