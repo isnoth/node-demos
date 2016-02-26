@@ -31,7 +31,6 @@
           count: this.state.count +1
         })
 
-        //do notify every 10 sec
         console.log(this.state.count)
         if (this.state.count == this.state.timer){
           this.doNotify()
@@ -45,17 +44,19 @@
       clearInterval(this.timer)
     },
     
-
     render: function(){
       var ProgressBar = ReactBootstrap.ProgressBar
       var Col = ReactBootstrap.Col
+      var remain = this.state.timer - this.state.count
 
       return (
         <div> 
-          {this.state.count} 
           <Col xs={3}>
-            <ProgressBar active now={(this.state.count/ this.state.timer)*100} />
+            <ProgressBar active 
+              now={(this.state.count/ this.state.timer)*100}
+            />
           </Col>
+          {Math.floor(remain/60)} : {remain%60}
         </div>
       )
     },
