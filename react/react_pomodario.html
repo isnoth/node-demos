@@ -19,7 +19,10 @@
 
   var LaterApp = React.createClass({
     getInitialState: function(){
-      return {count:1}
+      return {
+        timer: this.props.timer,
+        count:0
+      }
     },
 
     componentDidMount: function(){
@@ -30,8 +33,9 @@
 
         //do notify every 10 sec
         console.log(this.state.count)
-        if ((this.state.count % 10) == 0){
+        if (this.state.count == this.state.timer){
           this.doNotify()
+          clearInterval(this.timer)
         }
 
       }.bind(this), 1000)
@@ -50,7 +54,7 @@
         <div> 
           {this.state.count} 
           <Col xs={3}>
-            <ProgressBar active now={this.state.count} />
+            <ProgressBar active now={(this.state.count/ this.state.timer)*100} />
           </Col>
         </div>
       )
@@ -87,11 +91,20 @@
     getInitialState: function(){
       return {
         edit: false,
+        timer: 10,
       };
     },
 
+
+
     changeEdit: function(){
       this.setState({edit: !this.state.edit});
+    },
+
+    handleChange: function(event){
+      this.setState({
+        timer: event.target.value
+      })
     },
 
     render: function(){
@@ -102,13 +115,19 @@
       if (this.state.edit){
         return (
           <div onClick={this.changeEdit}>
-            <LaterApp />
+            <LaterApp timer={this.state.timer}/>
           </div>
         )
       }else{
         return (
-          <div onClick={this.changeEdit} >
-            <label> off  </label>
+          <div >
+            <Col xs={3}>
+              <Input type="text" 
+                     value={this.state.value} 
+                     onChange = {this.handleChange}
+                     placeholder="Enter text"/> 
+            </Col>
+            <Button onClick={this.changeEdit}>OK</Button>
           </div>
         )
       }
