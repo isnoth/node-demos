@@ -37,8 +37,9 @@
     "react-bootstrap": "~0.28.2",
     "babel": "*",
     "bootstrap": "~3.3.6",
-    "notify.js": "~1.2.8",
+    "notify.js": "^1.2.8",
     "classnames": "^2.2.3",
-    "PubSubJS": "pubsub-js#^1.5.3"
+    "PubSubJS": "pubsub-js#^1.5.3",
+    "later": "^1.2.0"
   }
 }
