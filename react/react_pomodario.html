@@ -1,5 +1,5 @@
 <h2>React-Bootstrap Testing</h2>
-<p> use react to notify</p>
+<p> a pomodario app </p>
 
 <div id="label"></div>
 <div id="later"></div>
@@ -9,7 +9,6 @@
 <script src="bower_components/babel/browser.js"></script>
 <script src="bower_components/react-bootstrap/react-bootstrap.js"></script>
 <script src="bower_components/notify.js/notify.js"></script>
-<script src="bower_components/later/later.min.js"></script>
 
 <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
@@ -42,6 +41,12 @@
 
     componentWillUnmount: function() {
       clearInterval(this.timer)
+
+      //stop sound
+      if(this.audio){
+        this.audio.pause();
+        this.audio.currentTime = 0;
+      }
     },
     
     render: function(){
@@ -74,6 +79,11 @@
             icon: 'assets/CD.jpg'
         });
         myNotification.show();
+
+        //play a sound
+        this.audio = new Audio('Kalimba.mp3');
+        this.audio.play()
+
     },
 
     doNotify: function(){
@@ -93,22 +103,30 @@
     getInitialState: function(){
       return {
         edit: false,
-        timer: 10,
+        timer: 0,
+        min: 25,
+        sec: 0
       };
     },
 
-
-
     changeEdit: function(){
+      this.setState({
+        timer: parseInt(this.state.min)*60 + parseInt(this.state.sec)
+      })
+      console.log('min: ', this.state.min, 'sec: ', this.state.sec, 'timer: ', this.state.timer )
+
       this.setState({edit: !this.state.edit});
     },
-
-    handleChange: function(event){
+    changeMin: function(event){
       this.setState({
-        timer: event.target.value
+        min: event.target.value,
       })
     },
-
+    changeSec: function(event){
+      this.setState({
+        sec: event.target.value,
+      })
+    },
     render: function(){
       var Button = ReactBootstrap.Button
       var Input = ReactBootstrap.Input
@@ -123,11 +141,17 @@
       }else{
         return (
           <div >
-            <Col xs={3}>
+            <Col xs={1}>
               <Input type="text" 
-                     value={this.state.value} 
-                     onChange = {this.handleChange}
-                     placeholder="Enter text"/> 
+                     value={this.state.min} 
+                     onChange = {this.changeMin}
+                     placeholder="minute"/> 
+            </Col>
+            <Col xs={1}>
+              <Input type="text" 
+                     value={this.state.sec} 
+                     onChange = {this.changeSec}
+                     placeholder="second"/> 
             </Col>
             <Button onClick={this.changeEdit}>OK</Button>
           </div>
