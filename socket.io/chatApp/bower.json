@@ -1,0 +1,21 @@
+{
+  "name": "chatapp",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "isnothe@home <isnothe@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/isnoth/node_example",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.2"
+  }
+}
